@@ -1,0 +1,7 @@
+C:\Users\shreyapa\Desktop\GreatOutdoors new\GreatOutdoors.PresentationLayer\bin\Debug\GreatOutdoors.PresentationLayer.exe.config
+C:\Users\shreyapa\Desktop\GreatOutdoors new\GreatOutdoors.PresentationLayer\bin\Debug\GreatOutdoors.PresentationLayer.exe
+C:\Users\shreyapa\Desktop\GreatOutdoors new\GreatOutdoors.PresentationLayer\bin\Debug\GreatOutdoors.PresentationLayer.pdb
+C:\Users\shreyapa\Desktop\GreatOutdoors new\GreatOutdoors.PresentationLayer\obj\Debug\GreatOutdoors.PresentationLayer.csprojAssemblyReference.cache
+C:\Users\shreyapa\Desktop\GreatOutdoors new\GreatOutdoors.PresentationLayer\obj\Debug\GreatOutdoors.PresentationLayer.csproj.CoreCompileInputs.cache
+C:\Users\shreyapa\Desktop\GreatOutdoors new\GreatOutdoors.PresentationLayer\obj\Debug\GreatOutdoors.PresentationLayer.exe
+C:\Users\shreyapa\Desktop\GreatOutdoors new\GreatOutdoors.PresentationLayer\obj\Debug\GreatOutdoors.PresentationLayer.pdb
