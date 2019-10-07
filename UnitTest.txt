@@ -1,0 +1,480 @@
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using GreatOutdoors.BusinessLayer;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Capgemini.GreatOutdoors.Entities;
+
+namespace Capgemini.GreatOutdoors.UnitTests
+{
+    [TestClass]
+    public class AddAddressBLTest
+    {
+        /// <summary>
+        /// Add Address to the Collection if it is valid.
+        /// </summary>
+        [TestMethod]
+        public async Task AddValidAddress()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { RetailerID = Guid.Parse("740499a2-d655-4d9d-8df9-538171f76807"), Line1 = "Qtr no -5, Block - B,", Line2 = "Sector - 9,", Pincode = 490006, City = "Bhilai", State = "Chhattisgarh", MobileNo = "9176445678" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsTrue(isAdded, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Address Line1 can't be null
+        /// </summary>
+        [TestMethod]
+        public async Task AddressLine1CanNotBeNull()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = null, Line2 = "Sector - 9,", Pincode = 490006, City = "Bhilai", State = "Chhattisgarh", MobileNo = "9176445678" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isAdded, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Address Line2 can't be null
+        /// </summary>
+        [TestMethod]
+        public async Task AddressLine2CanNotBeNull()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr No. 5, Block - B, Setor -9,", Line2 = null, Pincode = 490006, City = "Bhilai", State = "Chhattisgarh", MobileNo = "9176445678" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isAdded, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Address Pincode can't be zero
+        /// </summary>
+        [TestMethod]
+        public async Task AddressPincodeCanNotBeZero()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr No. 5, Block - B,", Line2 = "Sector - 9,", Pincode = 0, City = "Bhilai", State = "Chhattisgarh", MobileNo = "9176445678" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isAdded, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Address City can't be null
+        /// </summary>
+        [TestMethod]
+        public async Task AddressCityCanNotBeNull()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr No. 5, Block - B,", Line2 = "Sector - 9,", Pincode = 0, City = null, State = "Chhattisgarh", MobileNo = "9176445678" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isAdded, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Address State can't be null
+        /// </summary>
+        [TestMethod]
+        public async Task AddressStateCanNotBeNull()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr No. 5, Block - B,", Line2 = " Setor -9,", Pincode = 490006, City = "Bhilai", State = null, MobileNo = "9176445678" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isAdded, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Address MobileNo should be a valid mobile number
+        /// </summary>
+        [TestMethod]
+        public async Task AddressMobileNoRegExp()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr No. 5, Block - B,", Line2 = " Setor -9,", Pincode = 490006, City = "Bhilai", State = null, MobileNo = "9176" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isAdded, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Password should be a valid password as per regular expression
+        /// </summary>
+        [TestMethod]
+        public async Task AddressPincodeRegExp()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr No. 5, Block - B,", Line2 = " Setor -9,", Pincode = 49001, City = "Bhilai", State = null, MobileNo = "9176445678" };
+            bool isAdded = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isAdded = await addressBL.AddAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isAdded = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isAdded, errorMessage);
+            }
+        }
+    }
+       
+    [TestClass]
+    public class GetAddressByAddressIDBLTest
+    {
+        /// <summary>
+        /// Get Address if given ID is valid
+        /// </summary>
+        [TestMethod]
+        public async Task ValidAddressID()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr no -5, Block - B,", Line2 = "Sector - 9,", Pincode = 490006, City = "Bhilai", State = "Chhattisgarh", MobileNo = "9176445678" };
+            await addressBL.AddAddressBL(address);
+            bool isValid = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                if (address.Equals(await addressBL.GetAddressByAddressIDBL(address.AddressID)))
+                    isValid = true;
+            }
+            catch (Exception ex)
+            {
+                isValid = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsTrue(isValid, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Should raise an error if invalid Address ID is given
+        /// </summary>
+        [TestMethod]
+        public async Task InvalidAddressID()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Guid invalidID = new Guid();
+            bool isValid = true;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                Address address = new Address() { AddressID = Guid.Parse("f55316ff-32e3-44c3-9d5c-7fa2968ab6c2") };
+                if ((address = await addressBL.GetAddressByAddressIDBL(invalidID)) == null)
+                    isValid = false;
+            }
+            catch (Exception ex)
+            {
+                isValid = true;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isValid, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Get Address if given ID is valid
+        /// </summary>
+        [TestMethod]
+        public async Task ValidRetailerID()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr no -5, Block - B,", Line2 = "Sector - 9,", Pincode = 490006, City = "Bhilai", State = "Chhattisgarh", MobileNo = "9176445678" };
+            await addressBL.AddAddressBL(address);
+            bool isValid = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                if (address.Equals(await addressBL.GetAddressByRetailerIDBL(address.RetailerID)))
+                    isValid = true;
+            }
+            catch (Exception ex)
+            {
+                isValid = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsTrue(isValid, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Should raise an error if invalid Retailer ID is given
+        /// </summary>
+        [TestMethod]
+        public async Task InvalidRetailerID()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Guid invalidID = Guid.NewGuid();
+        
+            bool isValid = true;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                List<Address> address = new List<Address>() { RetailerID = Guid.Parse("f55316ff-32e3-44c3-9d5c-7fa2968ab6c2") };
+                if ((address = (await addressBL.GetAddressByRetailerIDBL(invalidID))) == null)
+                    isValid = false;
+            }
+            catch (Exception ex)
+            {
+                isValid = true;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isValid, errorMessage);
+            }
+        }
+    }
+
+    [TestClass]
+    public class UpdateSalesPersonBLTest
+    {
+        /// <summary>
+        /// Update SalesPerson's details if given name,email and mobile are valid
+        /// </summary>
+        [TestMethod]
+        public async Task ValidAddressDetails()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr no. 5, Block - B,", Line2 = "Sector - 9", MobileNo = "9876543210" };
+            await addressBL.AddAddressBL(address);
+
+            address.Line1 = "Qtr no. 5, Block - B,";
+            address.Line2 = "Sector - 9";
+            address.MobileNo = "8897476406";
+
+            bool isUpdated = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isUpdated = await addressBL.UpdateAddressBL(address);
+            }
+            catch (Exception ex)
+            {
+                isUpdated = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsTrue(isUpdated, errorMessage);
+            }
+        }
+
+
+
+    }
+
+    [TestClass]
+    public class DeleteSalesPersonBLTest
+    {
+        /// <summary>
+        /// Delete SalesPerson if given ID is valid
+        /// </summary>
+        [TestMethod]
+        public async Task ValidAddressID()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Address address = new Address() { Line1 = "Qtr No. 5, Block - B,", Line2 = " Setor -9,", Pincode = 490001, City = "Bhilai", State = "Chhattisgarh", MobileNo = "9176445678" };
+            await addressBL.AddAddressBL(address);
+            bool isDeleted = false;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isDeleted = await addressBL.DeleteAddressBL(address.AddressID);
+            }
+            catch (Exception ex)
+            {
+                isDeleted = false;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsTrue(isDeleted, errorMessage);
+            }
+        }
+
+        /// <summary>
+        /// Should raise an error if invalid SalesPerson ID is given
+        /// </summary>
+        [TestMethod]
+        public async Task InvalidAddressID()
+        {
+            //Arrange
+            AddressBL addressBL = new AddressBL();
+            Guid invalidID = new Guid();
+            bool isDeleted = true;
+            string errorMessage = null;
+
+            //Act
+            try
+            {
+                isDeleted = await addressBL.DeleteAddressBL(invalidID);
+            }
+            catch (Exception ex)
+            {
+                isDeleted = true;
+                errorMessage = ex.Message;
+            }
+            finally
+            {
+                //Assert
+                Assert.IsFalse(isDeleted, errorMessage);
+            }
+        }
+
+    }
+}
