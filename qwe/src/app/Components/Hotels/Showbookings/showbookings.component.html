@@ -1,0 +1,21 @@
+
+
+<div *ngFor="let bookings of mybookings; let index = index"> 
+    <h1 class="text-center" > <span *ngIf="!(mybookings.length > 2)&&(index==0)">No bookings</span>  </h1>
+   
+
+<div class="card" style="width: 18rem;" *ngIf="index > 1 " style="background: transparent;">
+    <div class="card-body" style="background: transparent;">
+      <h1 class="card-title"> Place : {{bookings.Destination}}</h1>
+      <h3 class="card-subtitle ">Price : {{bookings.Price}}</h3>
+      <h3 class="card-subtitle ">Rooms : {{bookings.Rooms}}</h3>
+      <h4>
+        <span>Check In date - {{bookings.Checkin}}</span>
+      </h4>
+      <br>
+      <h4>  
+        <span>Check out Date -{{bookings.Checkout}}</span>
+      </h4>   
+    </div>
+  </div>
+</div>

@@ -1,0 +1,79 @@
+<div >   
+<h1 class="text-center text-black bold"> <span> The Best Resorts in {{bookings?.Destination}} <tr></tr></span> </h1>
+<div class="row card-group bg" > 
+    <div *ngFor="let hotel of hotels; let index = index" class="col-4"> 
+    <div class="card" style="width: 18rem;" style="background: transparent;">
+        <div class="card-body" style="margin-top: 50px;">
+          <h3 class="card-title text-black bold" >Name : {{hotel.name}}</h3>
+          <p class="card-text text-black bold">Price : {{hotel.price}}</p>
+          <button href="#" class="btn btn-primary" data-target="#bookhotelModel" data-toggle="modal"
+          (click)="onBooknowClick(index)" >Book Now</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <form [formGroup]="mybookingsform">
+<!-- Button trigger modal -->
+<!-- Modal -->
+<div class="modal fade" id="bookhotelModel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Booking Details</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <span>Select Number of rooms:(3 adults per room max) <tr></tr></span>
+        <select class="form-control" formControlName="Rooms" (change)="selectChangeHandler($event)" >
+          <option value="1"  selected="true">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          v<option value="5">5</option>
+      </select>
+      <br>  
+      <span class="text-danger" *ngIf="roomsmessage">Please Select rooms</span>
+      <br>
+      <div> 
+        <label for="Price"> <tr> </tr> Price(Per room) <tr>  </tr></label>
+        <input type="text" class="form-control" formControlName="Price" id="Price" readonly="true" >
+      </div>
+      <div> 
+        <label for="Checkin"> <tr> </tr> Checkin <tr>  </tr></label>
+        <input type="text" class="form-control" formControlName="Checkin" id="Checkin" readonly="true" >
+      </div>
+      <div> 
+        <label for="Checkout"> <tr> </tr> Checkout <tr>  </tr></label>
+        <input type="text" class="form-control" formControlName="Checkout" id="Checkout" readonly="true" >
+      </div>
+
+      <div> 
+        <label for="Promocode"> <tr> </tr> Promo Code <tr>  </tr></label>
+        <input type="text" class="form-control" formControlName="Promocode" id="Promocode" (blur)="Seecode()" >
+      </div>
+
+      <div> 
+        <label *ngIf="Finalprice" for="Totalprice"> <tr> </tr> Total Price {{mybookingsform.value.Totalprice}}<tr>  </tr></label>
+       
+      </div>
+
+      <div *ngIf="Promocode" class="text-success">
+        Your code has been applied successfully you get 500 rs off!
+     </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnconfirmbookingcancel" >Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="onConfirmBookingClick($event)" 
+        [disabled]="confirmbookingdisabled"
+         >Confirm Booking</button>
+      </div>
+    </div>
+  </div>
+</div>
+      </form>
+</div>
+

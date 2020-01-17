@@ -1,0 +1,69 @@
+<!-- Hotel Component Template -->
+<div class="row"  >      
+<div class="col-4 text-center float-left">
+  <h1>  </h1>
+</div>
+<div class="col-4 text-center" style="margin-top: 40px;">
+      <div class="container" >
+       <h3 class="text-center font-weight-bold">Book Your Hotels with us</h3>
+       <form  [formGroup] = "hoteldetails" (ngSubmit)="onSubmit()" >
+        <!-- Checkin label -->
+        <label for="Checkinid" class="font-weight-bold" style="padding-top:25px;">CheckIn Date </label>
+        <input type="text"   class="form-control" id="Checkinid" formControlName="Checkin"
+        bsDatepicker
+        ngModel
+        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+        [minDate]="MinDateCheckIn"
+        [maxDate]="MaxDateCheckIn" (ngModelChange)="compareTwoDatescheckin()" >
+           <span class="text-danger" *ngIf="hoteldetails.get('Checkin').invalid
+         && 
+          hoteldetails.get('Checkin').errors.required &&
+          (hoteldetails.get('Checkin').touched || 
+          hoteldetails.get('Checkin').dirty ||
+           hoteldetails.submitted)">Checkin can't be blank</span>
+       <br> 
+       <br>   
+       <!-- Checkout  -->
+        <label for="Checkoutid" class="font-weight-bold">Checkout Date </label>
+        <input type="text" class="form-control" id="Checkoutid" formControlName="Checkout" 
+        bsDatepicker
+        ngModel
+        [bsConfig]="{ dateInputFormat: 'MM/DD/YYYY' }"
+        [minDate]="MinDateCheckOut"
+        [maxDate]="MaxDateCheckOut" (ngModelChange)="compareTwoDates()">
+          <span class="text-danger" *ngIf="hoteldetails.get('Checkout').invalid
+           && 
+          hoteldetails.get('Checkout').errors.required &&
+          (hoteldetails.get('Checkout').touched || 
+           hoteldetails.get('Checkout').dirty ||
+            hoteldetails.submitted)">Checkout can't be blank</span>
+
+    <div *ngIf="error.isError" class="alert alert-danger">
+      {{ error.errorMessage }}
+   </div>
+      <br>
+        <!-- Destination -->
+
+        <label for="destinations" class="font-weight-bold">Select a Destination:</label>
+        <br>
+        <select class="form-control" formControlName="Destination" (change)="selectChangeHandler($event)" id="destinations">
+          <option value="Goa">Goa</option>
+          <option value="Mumbai">Mumbai</option>
+          <option value="Ooty">Ooty</option>
+      </select>
+      
+
+       <span class="text-danger" *ngIf="hoteldetails.get('Destination').invalid
+   && 
+   hoteldetails.get('Destination').errors.required &&
+    (hoteldetails.get('Destination').touched || 
+    hoteldetails.get('Destination').dirty ||
+    hoteldetails.submitted)">Destination can't be blank</span>
+
+             <p><span>You selected: </span><b>{{location}}</b></p>
+
+            <button type="submit" class="btn btn-primary"  [disabled]="Disabledvalue">Get Hotels</button>
+        </form>
+    </div>
+</div>
+</div>    
